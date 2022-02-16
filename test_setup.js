@@ -5,6 +5,8 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
 const { doesNotMatch } = require('assert');
 const { assert } = require('console');
 
+const TMS_BASE_URL = 'https://dmb-qa.dgcdn.net/';
+
 async function login(mDriver) {
     let driver = mDriver;
         try {
@@ -33,13 +35,13 @@ async function login(mDriver) {
         }
 }
 
-describe('Google.com', function() {
-    it('searches', async function() {
+describe('Login page', function() {
+    it('User is logged in with correct credentials', async function() {
         
         this.timeout(0);
         let driver = await new Builder().forBrowser('chrome').build();
         try {
-            await driver.get('https://dmb-qa.dgcdn.net/');
+            await driver.get(TMS_BASE_URL);
             var usernameField = await driver.findElement(By.name('Input.Email'))
             var passwordField = await driver.findElement(By.name('Input.Password'))
 
@@ -69,15 +71,3 @@ describe('Google.com', function() {
     })
 })
 
-/*
-(async function example() {
-    let driver = await new Builder().forBrowser('chrome').build();
-    try {
-      await driver.get('http://www.google.com/ncr');
-      await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
-      await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
-    } finally {
-      await driver.quit();
-    }
-  })();
-  */
